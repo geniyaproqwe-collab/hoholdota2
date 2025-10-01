@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LumeXShop - Магазин сетов</title>
+    <title>SellerNeverTime - Магазин сетов</title>
     <style>
         * {
             margin: 0;
@@ -258,35 +258,13 @@
             color: #555;
             font-size: 14px;
         }
-        
-        .status-badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .status-pending {
-            background: rgba(243, 156, 18, 0.2);
-            color: #f39c12;
-            border: 1px solid rgba(243, 156, 18, 0.3);
-        }
-        
-        .status-completed {
-            background: rgba(39, 174, 96, 0.2);
-            color: #27ae60;
-            border: 1px solid rgba(39, 174, 96, 0.3);
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>LUMEX SHOP</h1>
-            <p>PREMIUM MARKETPLACE</p>
+            <h1>SELLERNEVERTIME</h1>
+            <p>MARKETPLACE</p>
         </div>
         
         <div class="balance-card">
@@ -308,16 +286,16 @@
         </div>
         
         <div class="actions">
-            <a href="https://t.me/sellernevertime_bot?start=deposit" class="btn btn-primary" target="_blank">ПОПОЛНИТЬ</a>
-            <a href="https://t.me/sellernevertime_bot?start=withdraw" class="btn" target="_blank">ВЫВЕСТИ</a>
-            <a href="https://t.me/sellernevertime_bot?start=my_sets" class="btn" target="_blank">МОИ СЕТЫ</a>
-            <a href="https://t.me/sellernevertime_bot?start=sell_set" class="btn" target="_blank">ПРОДАТЬ СЕТ</a>
+            <a href="https://t.me/sellernevertime_bot?start=deposit" class="btn btn-primary" target="_blank">💳 ПОПОЛНИТЬ</a>
+            <a href="https://t.me/sellernevertime_bot?start=withdraw" class="btn" target="_blank">💸 ВЫВЕСТИ</a>
+            <a href="https://t.me/sellernevertime_bot?start=my_sets" class="btn" target="_blank">📦 МОИ СЕТЫ</a>
+            <a href="https://t.me/sellernevertime_bot?start=sell_set" class="btn" target="_blank">🛒 ПРОДАТЬ СЕТ</a>
         </div>
         
         <div class="tabs">
-            <div class="tab active" onclick="showTab('marketplace')">МАГАЗИН</div>
-            <div class="tab" onclick="showTab('purchases')">ПОКУПКИ</div>
-            <div class="tab" onclick="showTab('sales')">ПРОДАЖИ</div>
+            <div class="tab active" onclick="showTab('marketplace')">🛍️ МАГАЗИН</div>
+            <div class="tab" onclick="showTab('purchases')">📥 ПОКУПКИ</div>
+            <div class="tab" onclick="showTab('sales')">📤 ПРОДАЖИ</div>
         </div>
         
         <!-- Магазин -->
@@ -331,7 +309,7 @@
         <div id="purchases" class="tab-content hidden">
             <div id="purchases-container">
                 <div class="empty-state">
-                    <h3>ПОКУПОК ПОКА НЕТ</h3>
+                    <h3>📥 ПОКУПОК ПОКА НЕТ</h3>
                     <p>Купите свой первый сет в магазине</p>
                 </div>
             </div>
@@ -341,7 +319,7 @@
         <div id="sales" class="tab-content hidden">
             <div id="sales-container">
                 <div class="empty-state">
-                    <h3>ПРОДАЖ ПОКА НЕТ</h3>
+                    <h3>📤 ПРОДАЖ ПОКА НЕТ</h3>
                     <p>Разместите свой первый сет на продажу</p>
                 </div>
             </div>
@@ -349,14 +327,12 @@
     </div>
 
     <script>
-        // Данные пользователя (будут получаться из бота)
         let userData = {
             tg: 0,
             rub: 0,
             star: 0
         };
         
-        // Массив для сетов (будет заполняться через API)
         let setsData = [];
         
         function updateBalance() {
@@ -366,15 +342,11 @@
         }
         
         function showTab(tabName) {
-            // Скрыть все вкладки
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.add('hidden');
             });
-            
-            // Показать выбранную вкладку
             document.getElementById(tabName).classList.remove('hidden');
             
-            // Обновить активные табы
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.classList.remove('active');
             });
@@ -387,7 +359,7 @@
             if (setsData.length === 0) {
                 container.innerHTML = `
                     <div class="empty-state">
-                        <h3>СЕТОВ ПОКА НЕТ</h3>
+                        <h3>🛍️ СЕТОВ ПОКА НЕТ</h3>
                         <p>Будьте первым, кто разместит сет</p>
                     </div>
                 `;
@@ -408,7 +380,7 @@
                                 <span class="price price-rub">${set.prices.rub.toLocaleString()} ₽</span>
                                 <span class="price price-star">${set.prices.star.toLocaleString()} ⭐</span>
                             </div>
-                            <button class="buy-btn" onclick="buySet(${set.id})">КУПИТЬ</button>
+                            <button class="buy-btn" onclick="buySet(${set.id})">🛒 КУПИТЬ</button>
                             <div class="seller-info">Продавец: @${set.seller}</div>
                         </div>
                     </div>
@@ -421,7 +393,6 @@
             const set = setsData.find(s => s.id === setId);
             if (!set) return;
             
-            // Отправка данных в бота для покупки через гаранта
             if (window.Telegram && window.Telegram.WebApp) {
                 Telegram.WebApp.sendData(JSON.stringify({
                     action: 'buy_set',
@@ -429,24 +400,18 @@
                     seller: set.seller
                 }));
             } else {
-                // Если не в Telegram, открываем бота
                 window.open(`https://t.me/sellernevertime_bot?start=buy_${setId}`, '_blank');
             }
         }
         
-        // Функция для загрузки данных из бота
         function loadUserData() {
-            // Здесь будет запрос к API бота для получения баланса и сетов
-            // Пока заглушка
             updateBalance();
             loadSets();
         }
         
-        // Инициализация
         document.addEventListener('DOMContentLoaded', function() {
             loadUserData();
             
-            // Интеграция с Telegram Web App
             if (window.Telegram && window.Telegram.WebApp) {
                 Telegram.WebApp.ready();
                 Telegram.WebApp.expand();
