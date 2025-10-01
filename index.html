@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LumeXShop - Магазин сетов</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            background: linear-gradient(45deg, #fff, #aaa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+        
+        .header p {
+            color: #888;
+            font-size: 14px;
+        }
+        
+        .balance-card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        
+        .balance-card h3 {
+            color: #fff;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .balance-items {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        
+        .balance-item {
+            text-align: center;
+            flex: 1;
+            padding: 12px;
+            background: #252525;
+            border-radius: 12px;
+            border: 1px solid #333;
+        }
+        
+        .balance-amount {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+        }
+        
+        .balance-label {
+            font-size: 11px;
+            color: #888;
+            margin-top: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        
+        .btn {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 500;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #333, #555);
+            border: 1px solid #444;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            border-color: #666;
+            box-shadow: 0 8px 20px rgba(255,255,255,0.1);
+        }
+        
+        .sets-grid {
+            display: grid;
+            gap: 16px;
+        }
+        
+        .set-card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .set-card:hover {
+            border-color: #555;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(255,255,255,0.05);
+        }
+        
+        .set-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid #333;
+        }
+        
+        .set-info {
+            padding: 18px;
+        }
+        
+        .set-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+        
+        .set-description {
+            font-size: 13px;
+            color: #aaa;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        
+        .set-prices {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding: 12px;
+            background: #252525;
+            border-radius: 10px;
+            border: 1px solid #333;
+        }
+        
+        .price {
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        .price-tg { color: #27ae60; }
+        .price-rub { color: #e74c3c; }
+        .price-star { color: #f39c12; }
+        
+        .buy-btn {
+            width: 100%;
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .buy-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(39, 174, 96, 0.3);
+        }
+        
+        .seller-info {
+            font-size: 11px;
+            color: #666;
+            text-align: right;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .tabs {
+            display: flex;
+            background: #1a1a1a;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #888;
+            font-weight: 500;
+        }
+        
+        .tab.active {
+            background: #333;
+            color: #fff;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .empty-state {
+            text-align: center;
+            color: #666;
+            padding: 60px 20px;
+        }
+        
+        .empty-state h3 {
+            margin-bottom: 12px;
+            color: #888;
+            font-size: 18px;
+        }
+        
+        .empty-state p {
+            color: #555;
+            font-size: 14px;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .status-pending {
+            background: rgba(243, 156, 18, 0.2);
+            color: #f39c12;
+            border: 1px solid rgba(243, 156, 18, 0.3);
+        }
+        
+        .status-completed {
+            background: rgba(39, 174, 96, 0.2);
+            color: #27ae60;
+            border: 1px solid rgba(39, 174, 96, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>LUMEX SHOP</h1>
+            <p>PREMIUM MARKETPLACE</p>
+        </div>
+        
+        <div class="balance-card">
+            <h3>ВАШ БАЛАНС</h3>
+            <div class="balance-items">
+                <div class="balance-item">
+                    <div class="balance-amount" id="balance-tg">0 ₸</div>
+                    <div class="balance-label">Тенге</div>
+                </div>
+                <div class="balance-item">
+                    <div class="balance-amount" id="balance-rub">0 ₽</div>
+                    <div class="balance-label">Рубли</div>
+                </div>
+                <div class="balance-item">
+                    <div class="balance-amount" id="balance-star">0 ⭐</div>
+                    <div class="balance-label">Звезды</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="actions">
+            <a href="https://t.me/sellernevertime?start=deposit" class="btn btn-primary" target="_blank">ПОПОЛНИТЬ</a>
+            <a href="https://t.me/sellernevertime?start=withdraw" class="btn" target="_blank">ВЫВЕСТИ</a>
+            <a href="https://t.me/sellernevertime?start=my_sets" class="btn" target="_blank">МОИ СЕТЫ</a>
+            <a href="https://t.me/sellernevertime?start=sell_set" class="btn" target="_blank">ПРОДАТЬ СЕТ</a>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('marketplace')">МАГАЗИН</div>
+            <div class="tab" onclick="showTab('purchases')">ПОКУПКИ</div>
+            <div class="tab" onclick="showTab('sales')">ПРОДАЖИ</div>
+        </div>
+        
+        <!-- Магазин -->
+        <div id="marketplace" class="tab-content">
+            <div class="sets-grid" id="sets-container">
+                <!-- Сеты будут загружаться через API -->
+            </div>
+        </div>
+        
+        <!-- Покупки -->
+        <div id="purchases" class="tab-content hidden">
+            <div id="purchases-container">
+                <div class="empty-state">
+                    <h3>ПОКУПОК ПОКА НЕТ</h3>
+                    <p>Купите свой первый сет в магазине</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Продажи -->
+        <div id="sales" class="tab-content hidden">
+            <div id="sales-container">
+                <div class="empty-state">
+                    <h3>ПРОДАЖ ПОКА НЕТ</h3>
+                    <p>Разместите свой первый сет на продажу</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Данные пользователя (будут получаться из бота)
+        let userData = {
+            tg: 0,
+            rub: 0,
+            star: 0
+        };
+        
+        // Массив для сетов (будет заполняться через API)
+        let setsData = [];
+        
+        function updateBalance() {
+            document.getElementById('balance-tg').textContent = userData.tg.toLocaleString() + ' ₸';
+            document.getElementById('balance-rub').textContent = userData.rub.toLocaleString() + ' ₽';
+            document.getElementById('balance-star').textContent = userData.star.toLocaleString() + ' ⭐';
+        }
+        
+        function showTab(tabName) {
+            // Скрыть все вкладки
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            
+            // Показать выбранную вкладку
+            document.getElementById(tabName).classList.remove('hidden');
+            
+            // Обновить активные табы
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+        
+        function loadSets() {
+            const container = document.getElementById('sets-container');
+            
+            if (setsData.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3>СЕТОВ ПОКА НЕТ</h3>
+                        <p>Будьте первым, кто разместит сет</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = '';
+            
+            setsData.forEach(set => {
+                const setCard = `
+                    <div class="set-card">
+                        <img src="${set.image}" alt="${set.name}" class="set-image">
+                        <div class="set-info">
+                            <div class="set-name">${set.name}</div>
+                            <div class="set-description">${set.description}</div>
+                            <div class="set-prices">
+                                <span class="price price-tg">${set.prices.tg.toLocaleString()} ₸</span>
+                                <span class="price price-rub">${set.prices.rub.toLocaleString()} ₽</span>
+                                <span class="price price-star">${set.prices.star.toLocaleString()} ⭐</span>
+                            </div>
+                            <button class="buy-btn" onclick="buySet(${set.id})">КУПИТЬ</button>
+                            <div class="seller-info">Продавец: @${set.seller}</div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += setCard;
+            });
+        }
+        
+        function buySet(setId) {
+            const set = setsData.find(s => s.id === setId);
+            if (!set) return;
+            
+            // Отправка данных в бота для покупки через гаранта
+            if (window.Telegram && window.Telegram.WebApp) {
+                Telegram.WebApp.sendData(JSON.stringify({
+                    action: 'buy_set',
+                    set_id: setId,
+                    seller: set.seller
+                }));
+            } else {
+                // Если не в Telegram, открываем бота
+                window.open(`https://t.me/sellernevertime?start=buy_${setId}`, '_blank');
+            }
+        }
+        
+        // Функция для загрузки данных из бота
+        function loadUserData() {
+            // Здесь будет запрос к API бота для получения баланса и сетов
+            // Пока заглушка
+            updateBalance();
+            loadSets();
+        }
+        
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserData();
+            
+            // Интеграция с Telegram Web App
+            if (window.Telegram && window.Telegram.WebApp) {
+                Telegram.WebApp.ready();
+                Telegram.WebApp.expand();
+            }
+        });
+    </script>
+</body>
+</html>
